@@ -4,6 +4,10 @@ namespace Morse_Code
 {
     internal class Program
     {
+        #region Morse Conversions
+        /// <summary>
+        /// Morse Conversions for letters
+        /// </summary>
         public static readonly string[] morseLetterConversions = {
             ".-",       // A
             "-...",     // B
@@ -32,6 +36,9 @@ namespace Morse_Code
             "-.--",     // Y
             "--.",      // Z
         };
+        /// <summary>
+        /// Morse Conversions for numbers
+        /// </summary>
         public static readonly string[] morseNumberConversions =
         {
             "-----",    // 0
@@ -45,6 +52,9 @@ namespace Morse_Code
             "---..",    // 8
             "----."     // 9
         };
+        /// <summary>
+        /// Morse Conversions for punctuations
+        /// </summary>
         public static readonly string[] morsePunctiationConversions1 =
         {
             "-.-.--",     // !
@@ -63,6 +73,9 @@ namespace Morse_Code
             ".-.-.-",     // .
             "-..-."       // /
         };
+        /// <summary>
+        /// Morse Conversions for other punctuations
+        /// </summary>
         public static readonly string[] morsePunctuationConversions2 =
         {
             "---...",     // :
@@ -73,7 +86,11 @@ namespace Morse_Code
             "..--..",     // ?
             ".--.-."      // @
         };
+        #endregion
 
+        /// <summary>
+        /// Receives the string to translate, and then diplays it with the corresponding beeps
+        /// </summary>
         static void Main()
         {
             Console.Write("Enter what you want to be translated (Characters like #*<>~` have no morse translation): ");
@@ -95,6 +112,11 @@ namespace Morse_Code
             }
         }
 
+        /// <summary>
+        /// Converts each character in a string to Morse
+        /// </summary>
+        /// <param name="letter">The character to translate</param>
+        /// <returns>The string containing the dots & dashes</returns>
         public static string ConvertToMorse(char letter)
         {
             if (65 <= letter && letter <= 90) { return morseLetterConversions[letter - 65]; }
@@ -110,6 +132,10 @@ namespace Morse_Code
             else { return " "; }
         }
 
+        /// <summary>
+        /// Reads the string and plays the beep for the appropriate amount
+        /// </summary>
+        /// <param name="morse">The StringBuilder to read from</param>
         public static void DitDah(StringBuilder morse)
         {
             for (int i = 0; i < morse.Length; i++)
