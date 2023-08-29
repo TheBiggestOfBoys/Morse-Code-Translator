@@ -96,14 +96,24 @@ namespace Morse_Code
         /// </summary>
         static void Main()
         {
-            // Receive the user's inputted string
-            Console.Write("Enter what you want to be translated (Characters like #*<>~` have no morse translation): ");
-            string word = Console.ReadLine();
-
-            if (word == string.Empty) { Console.WriteLine("Please enter a word!"); }
-
-            else
+            // Will infinitely prompt for another translation
+            while (true)
             {
+                // Initialize the empty string
+                string word = string.Empty;
+
+                Console.Write("Enter what you want to be translated (Characters like #*<>~` have no morse translation): ");
+
+                // Check if the input is empty, and remind the user to enter something
+                while (word == string.Empty)
+                {
+                    // Receive the inputted string
+                    word = Console.ReadLine();
+
+                    // If the string is empty, remind the users to enter a word
+                    if (word == string.Empty) { Console.WriteLine("Please enter a word!"); }
+                }
+
                 // The StringBuilder which will be used to translate
                 StringBuilder stringBuilder = new();
 
@@ -128,7 +138,7 @@ namespace Morse_Code
         public static string ConvertToMorse(char letter)
         {
             // If the ASCII value is a 'SPACE', insert this word break
-            if (letter == 32) { return " / "; }
+            if (letter == 32) { return "/"; }
 
             // If the ASCII value is between 33 & 47, it is in our 1st list of punctuation
             if (33 <= letter && letter <= 47) { return morsePunctiationConversions1[letter - 33]; }
