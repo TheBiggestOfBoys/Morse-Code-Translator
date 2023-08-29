@@ -89,7 +89,7 @@ namespace Morse_Code
         #endregion
 
         /// <summary>
-        /// Receives the string to translate, and then diplays it with the corresponding beeps
+        /// Receives the string to translate, and then displays it with the corresponding beeps
         /// </summary>
         static void Main()
         {
@@ -102,9 +102,9 @@ namespace Morse_Code
             {
                 StringBuilder stringBuilder = new();
 
-                for (int x = 0; x < word.Length; x++)
+                foreach (char c in word)
                 {
-                    stringBuilder.Append(ConvertToMorse(char.ToUpper(word[x])) + " ");
+                    stringBuilder.Append(ConvertToMorse(char.ToUpper(c)) + " ");
                 }
 
                 Console.WriteLine(stringBuilder);
@@ -138,11 +138,11 @@ namespace Morse_Code
         /// <param name="morse">The StringBuilder to read from</param>
         public static void DitDah(StringBuilder morse)
         {
-            for (int i = 0; i < morse.Length; i++)
+            foreach (char c in morse.ToString())
             {
-                if (morse[i].Equals('.')) { Console.Beep(800, 100); }
+                if (c.Equals('.')) { Console.Beep(800, 100); }
 
-                if (morse[i].Equals('-')) { Console.Beep(800, 300); }
+                if (c.Equals('-')) { Console.Beep(800, 300); }
 
                 else { Thread.Sleep(100); }
             }
