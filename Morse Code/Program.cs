@@ -123,10 +123,8 @@ namespace Morse_Code
                     stringBuilder.Append(ConvertToMorse(char.ToUpper(c)) + " ");
                 }
 
-                // Display the Morse translation
-                Console.WriteLine(stringBuilder);
-                // Play the Morse beep pattern
-                DitDah(stringBuilder.ToString());
+                // Display the Morse translation & play the Morse beep pattern
+                PrintAndBeep(stringBuilder.ToString());
             }
         }
 
@@ -157,23 +155,33 @@ namespace Morse_Code
         }
 
         /// <summary>
-        /// Reads the string and plays the beep for the appropriate amount
+        /// Reads the character and plays the beep for the appropriate amount
         /// </summary>
-        /// <param name="morse">The String to read from</param>
-        public static void DitDah(string morse)
+        /// <param name="morse">The character to read</param>
+        public static void DitDah(char morse)
         {
-            // Loop through each character in the StringBuilder converted to a string
+            // If the character is a dot (dit), play the short beep
+            if (morse.Equals('.')) { Console.Beep(800, 100); }
+
+            // If the character is a dash (dah), play the long beep
+            if (morse.Equals('-')) { Console.Beep(800, 300); }
+
+            // If there is a space between characters, pause
+            else { Thread.Sleep(100); }
+        }
+
+        /// <summary>
+        /// Print the characters and plays the corresponding beep
+        /// </summary>
+        /// <param name="morse">The string to read from</param>
+        public static void PrintAndBeep(string morse)
+        {
             foreach (char c in morse)
             {
-                // If the character is a dot (dit), play the short beep
-                if (c.Equals('.')) { Console.Beep(800, 100); }
-
-                // If the character is a dash (dah), play the long beep
-                if (c.Equals('-')) { Console.Beep(800, 300); }
-
-                // If there is a space between characters, pause
-                else { Thread.Sleep(100); }
+                Console.Write(c);
+                DitDah(c);
             }
+            Console.WriteLine();
         }
     }
 }
