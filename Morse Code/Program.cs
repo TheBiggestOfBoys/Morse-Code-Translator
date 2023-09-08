@@ -58,7 +58,7 @@ namespace Morse_Code
         /// <summary>
         /// Morse Conversions for punctuations
         /// </summary>
-        public static readonly string[] morsePunctiationConversions1 =
+        public static readonly string[] morsePunctuationConversions1 =
         {
             "-.-.--",     // !
             ".-..-.",     // "
@@ -135,39 +135,44 @@ namespace Morse_Code
         /// <returns>The Morse translation containing the dots & dashes</returns>
         public static string ConvertToMorse(char letter)
         {
-            // If the ASCII value is a 'SPACE', insert this word break
-            if (letter == 32) { return "/"; }
-
-            // If the ASCII value is between 33 & 47, it is in our 1st list of punctuation
-            if (33 <= letter && letter <= 47) { return morsePunctiationConversions1[letter - 33]; }
+            // If the ASCII value is a 'SPACE' or any other type of whitespace, insert this word break
+            if (char.IsWhiteSpace(letter)) return "/";
 
             // If the ASCII value is between 48 & 57, it is a number
-            if (48 <= letter && letter <= 57) { return morseNumberConversions[letter - 48]; }
+            if (char.IsDigit(letter)) return morseNumberConversions[letter - 48];
 
-            // If the ASCII value is between 58 & 64, it is in the 2nd list of punctuation
-            if (58 <= letter && letter <= 64) { return morsePunctuationConversions2[letter - 58]; }
+            if (char.IsPunctuation(letter) || char.IsSymbol(letter))
+            {
+                // If the ASCII value is between 33 & 47, it is in our 1st list of punctuation
+                if (33 <= letter && letter <= 47) return morsePunctuationConversions1[letter - 33];
+
+                // If the ASCII value is between 58 & 64, it is in the 2nd list of punctuation
+                if (58 <= letter && letter <= 64) return morsePunctuationConversions2[letter - 58];
+            }
 
             // If the ASCII value is between 65 & 90, it is a letter
-            if (65 <= letter && letter <= 90) { return morseLetterConversions[letter - 65]; }
+            // Since we already converted everything to UPPERCASE, we don't need to differentiate
+            if (char.IsLetter(letter)) return morseLetterConversions[letter - 65];
 
             // If the value is anything else (unsupported characters in Morse) inset a 'SPACE'
-            else { return " "; }
+            else return " ";
         }
 
         /// <summary>
-        /// Reads the character and plays the beep for the appropriate amount
+        /// Reads the character and plays the appropriate beep
         /// </summary>
         /// <param name="morse">The character to read</param>
         public static void DitDah(char morse)
         {
-            // If the character is a dot (dit), play the short beep
-            if (morse.Equals('.')) { Console.Beep(800, 100); }
-
-            // If the character is a dash (dah), play the long beep
-            if (morse.Equals('-')) { Console.Beep(800, 300); }
-
-            // If there is a space between characters, pause
-            else { Thread.Sleep(100); }
+            switch (morse)
+            {
+                // If the character is a dot (dit), play the short beep
+                case '.': Console.Beep(800, 100); break;
+                // If the character is a dash (dah), play the long beep
+                case '_': Console.Beep(800, 300); break;
+                // If there is a space between characters, pause
+                default: Thread.Sleep(100); break;
+            }
         }
 
         /// <summary>
