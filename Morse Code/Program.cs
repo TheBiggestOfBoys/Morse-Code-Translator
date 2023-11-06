@@ -120,7 +120,8 @@ namespace Morse_Code
                 foreach (char c in word)
                 {
                     // Add the translated character to the StringBuilder
-                    stringBuilder.Append(ConvertToMorse(char.ToUpper(c)) + " ");
+                    stringBuilder.Append(ConvertToMorse(char.ToUpper(c)));
+                    stringBuilder.Append(' ');
                 }
 
                 // Display the Morse translation & play the Morse beep pattern
@@ -169,7 +170,7 @@ namespace Morse_Code
                 // If the character is a dot (dit), play the short beep
                 case '.': Console.Beep(800, 100); break;
                 // If the character is a dash (dah), play the long beep
-                case '_': Console.Beep(800, 300); break;
+                case '-': Console.Beep(800, 300); break;
                 // If there is a space between characters, pause
                 default: Thread.Sleep(100); break;
             }
