@@ -4,8 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <RootNamespace>Morse_Code</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <StartupObject>Morse_Code.Program</StartupObject>
     <ApplicationIcon>Morse.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
